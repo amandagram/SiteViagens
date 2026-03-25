@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ExploreMundo – Descubra Lugares Incríveis</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange: #e8651a;
+      --orange-hover: #c95510;
+      --blue-nav: #1a3a5c;
+      --blue-footer: #1e3a52;
+      --blue-contact-bg: #d6e8f5;
+      --text-dark: #222;
+      --text-mid: #444;
+      --text-light: #666;
+      --white: #fff;
+      --card-shadow: 0 4px 18px rgba(0,0,0,0.10);
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      color: var(--text-dark);
+      background: #f9f9f9;
+    }
+
+    /* ── NAV ── */
+    nav {
+  background: var(--blue-nav);
+  height: 56px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+}
+
+.nav-inner {
+  width: 100%;
+  max-width: 708px; /* ← 3 cards (220px) + 2 gaps (24px) = 708px */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.45rem;
+      color: var(--white);
+      text-decoration: none;
+    }
+    .logo span { color: var(--orange); }
+    .logo svg { width: 22px; height: 22px; fill: var(--orange); }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 28px;
+    }
+    nav ul li a {
+      color: rgba(255,255,255,0.88);
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      transition: color .2s;
+    }
+    nav ul li a:hover,
+    nav ul li a.active { color: var(--white); border-bottom: 2px solid var(--orange); padding-bottom: 2px; }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 360px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      
+      background: url('ima1.jpg') center/cover no-repeat;
+    }
+   .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 60px 20px;
+    }
+    .hero-content h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      color: var(--white);
+      text-shadow: 0 2px 16px rgba(0,0,0,0.4);
+      margin-bottom: 14px;
+    }
+    .hero-content p {
+      color: rgba(255,255,255,0.92);
+      font-size: 1.05rem;
+      margin-bottom: 28px;
+    }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-block;
+      padding: 12px 32px;
+      background: var(--orange);
+      color: var(--white);
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.97rem;
+      letter-spacing: 0.04em;
+      transition: background .2s, transform .15s;
+      border: none;
+      cursor: pointer;
+    }
+    .btn:hover { background: var(--orange-hover); transform: translateY(-1px); }
+
+    /* ── SECTION TITLES ── */
+    .section-title {
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.75rem;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+    .section-sub {
+      text-align: center;
+      color: var(--text-light);
+      font-size: 0.97rem;
+      margin-bottom: 32px;
+    }
+
+    /* ── DESTINOS ── */
+    .destinos {
+      background: var(--white);
+      padding: 56px 40px 48px;
+    }
+    .cards {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+    }
+    .card {
+      background: var(--white);
+      border-radius: 10px;
+      box-shadow: var(--card-shadow);
+      overflow: hidden;
+      width: 220px;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(0,0,0,0.14); }
+    .card-img-placeholder {
+      width: 100%;
+      height: 145px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: #dce8f0;
+      border: 2.5px dashed #8aafc8;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #4a7a9b;
+      letter-spacing: 0.04em;
+      text-align: center;
+      padding: 8px;
+    }
+    .card-img-placeholder .ph-icon { font-size: 1.8rem; }
+    .card-img-placeholder .ph-hint {
+      font-size: 0.72rem;
+      font-weight: 400;
+      color: #7a9db8;
+      font-family: monospace;
+    }
+    .card-body { padding: 14px 16px 18px; }
+    .card-body h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.08rem;
+      margin-bottom: 6px;
+      color: var(--text-dark);
+    }
+    .card-body p { font-size: 0.86rem; color: var(--text-light); }
+    .destinos-cta { text-align: center; }
+
+    /* ── SOBRE ── */
+    .sobre {
+      background: #f4f4f4;
+      padding: 52px 40px;
+      text-align: center;
+    }
+    .sobre p {
+      color: var(--text-mid);
+      max-width: 560px;
+      margin: 0 auto 28px;
+      line-height: 1.65;
+    }
+
+    /* ── CONTACT ── */
+    .contato {
+      background: var(--blue-contact-bg);
+      padding: 52px 40px;
+    }
+    .contato-inner {
+      display: flex;
+      gap: 48px;
+      max-width: 860px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+    }
+    .contato-form { flex: 1; min-width: 240px; }
+    .contato-form h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      margin-bottom: 20px;
+      color: var(--text-dark);
+    }
+    .contato-form input,
+    .contato-form textarea {
+      width: 100%;
+      padding: 11px 14px;
+      margin-bottom: 14px;
+      border: 1px solid #c5d8e8;
+      border-radius: 6px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.93rem;
+      color: var(--text-dark);
+      background: var(--white);
+      outline: none;
+      transition: border-color .2s;
+    }
+    
+    .map-placeholder img { width: 100%; height: 100%; object-fit: cover; }
+    .map-pin {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -100%);
+      font-size: 2rem;
+    }
+    .contact-detail {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      font-size: 0.93rem;
+      color: var(--text-mid);
+    }
+    .contact-detail svg { width: 20px; height: 20px; flex-shrink: 0; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--blue-footer);
+      color: rgba(255,255,255,0.75);
+      text-align: center;
+      padding: 18px 20px;
+      font-size: 0.87rem;
+    }
+    footer strong { color: var(--white); }
+
+    @media (max-width: 680px) {
+      nav { padding: 0 18px; }
+      .hero-content h1 { font-size: 1.9rem; }
+      .destinos, .sobre, .contato { padding-left: 18px; padding-right: 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+   <div class="nav-inner">
+    <a class="logo" href="index.html">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+    </svg>
+    Explore<span>Mundo</span>
+  </a>
+  <ul>
+    <li><a href="index.html" class="active">Inicio</a></li>
+    <li><a href="destinos.html">Destinos</a></li>
+    <li><a href="#">Sobre</a></li>
+    <li><a href="#">Contato</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+      <div class="hero-content">
+    <h1>Descubra Lugares Incríveis!</h1>
+    <p>Explore os melhores destinos ao redor do mundo.</p>
+    <a href="#destinos" class="btn">Saiba Mais</a>
+  </div>
+</section>
+
+<!-- DESTINOS POPULARES -->
+<section class="destinos" id="destinos">
+  <h2 class="section-title">Destinos Populares</h2>
+  <div class="cards">
+    <div class="card">
+     
+      <div class="card-img-placeholder">
+       <img src="im2.png" alt="Praias Paradisíacas"/>
+      </div>
+      <div class="card-body">
+        <h3>Praias Paradisíacas</h3>
+        <p>Conheça as mais belas praias</p>
+      </div>
+
+    </div>
+    <div class="card">
+      
+      <div class="card-img-placeholder">
+        <img src="im3.png" alt="Montanhas"/>
+      </div>
+      <div class="card-body">
+        <h3>Montanhas</h3>
+        <p>Aventuras nas alturas</p>
+      </div>
+    </div>
+
+    <div class="card">
+     
+      <div class="card-img-placeholder">
+        <img src="im4.png" alt="Cidades Históricas"/>
+      </div>
+
+      <div class="card-body">
+        <h3>Cidades Históricas</h3>
+        <p>Explore a cultura e história</p>
+      </div>
+    </div>
+  </div>
+  <div class="destinos-cta">
+    <a href="destinos.html" class="btn">Ver Mais Destinos</a>
+  </div>
+</section>
+
+<!-- SOBRE NÓS -->
+<section class="sobre">
+  <h2 class="section-title">Sobre Nós</h2>
+  <p>Somos apaixonados por viagens e queremos ajudar você a explorar o mundo!</p>
+  <a href="#" class="btn">Leia Mais</a>
+</section>
+
+<!-- CONTATO -->
+<section class="contato">
+  <div class="contato-inner">
+    <div class="contato-form">
+      <h2>Fale Conosco</h2>
+      <input type="text" placeholder="Nome"/>
+      <input type="email" placeholder="E-mail"/>
+      <textarea placeholder="Mensagem"></textarea>
+      <button class="btn">Enviar</button>
+    </div>
+    <div class="contato-info">
+      <h2>Onde Estamos</h2>
+
+      <div class="map-placeholder">
+       
+        <div style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:#dce8f0;border:2.5px dashed #8aafc8;">
+         <img src="im5.png" alt="Mapa" style="width:100%;height:100%;object-fit:cover;"/>
+
+      
+        </div>
+      </div>
+
+      <div class="contact-detail">
+        <svg viewBox="0 0 24 24" fill="#e8651a" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 4H4C2.9 4 2 4.9 2 6v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+        </svg>
+        email: contato@exploremundo.com </a>
+      </div>
+      <div class="contact-detail">
+        <svg viewBox="0 0 24 24" fill="#e8651a" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1C10.61 21 3 13.39 3 4c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.24 1.02l-2.21 2.2z"/>
+        </svg>
+        (11) 1234-5678
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  © 2024 <strong>ExploreMundo</strong> – Todos os direitos reservados
+</footer>
+ 
+</body>
+</html>
